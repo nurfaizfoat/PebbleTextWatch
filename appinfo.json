@@ -1,26 +1,20 @@
 {
-  "uuid": "496e04ad-132a-48ab-b165-7ff4a99872d2",
-  "shortName": "TextWatch",
-  "longName": "TextWatch",
-  "companyName": "Wip Interactive",
-  "versionCode": 2,
-  "versionLabel": "2.0.0",
-  "watchapp": {
-    "watchface": true
-  },
-  "appKeys": {},
+
   "resources": {
-    "media": [
-      {
-        "type": "font",
-        "name": "FONT_GOTHAM_LIGHT_31",
-        "file": "fonts/gotham_light_31.ttf"
-      },
-      {
-        "type": "font",
-        "name": "FONT_GOTHAM_BOLD_36",
-        "file": "fonts/gotham_bold_36.ttf"
-      }
-    ]
-  }
-}
+  "media": [
+
+{
+  "name": "FONT_GOTHAM_LIGHT_23", "file": "fonts/gotham_light_23.ttf", "type": "font"},
+{
+  "name": "FONT_GOTHAM_BOLD_28", "file": "fonts/gotham_bold_28.ttf", "type": "font"}]},
+  "appKeys": {},
+  "longName": "TextWatchMY",
+  "uuid": "4846a572-4eb2-4aea-a549-0df4fea76eab",
+  "versionLabel": "2",
+  "watchapp": {"watchface": true},
+  "projectType": "native",
+  "companyName": "NRFZ",
+  "versionCode": 2,
+  "shortName":
+  "TextWatchMY",
+  "capabilities": [""]}

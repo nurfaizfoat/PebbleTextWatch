@@ -1,5 +1,5 @@
 #include "pebble.h"
-#include "num2words-en.h"
+#include "num2words-my.h"
 
 #define DEBUG 1
 #define BUFFER_SIZE 44
@@ -8,7 +8,7 @@ static Window *window;
 
 typedef struct {
 	TextLayer *currentLayer;
-	TextLayer *nextLayer;	
+	TextLayer *nextLayer;
 	PropertyAnimation *currentAnimation;
 	PropertyAnimation *nextAnimation;
 } Line;
@@ -41,24 +41,24 @@ static void makeAnimationsForLayers(Line *line, TextLayer *current, TextLayer *n
 	GRect fromRect = layer_get_frame(text_layer_get_layer(next));
 	GRect toRect = fromRect;
 	toRect.origin.x -= 144;
-	
+
 	line->nextAnimation = property_animation_create_layer_frame(text_layer_get_layer(next), &fromRect, &toRect);
 	animation_set_duration((Animation *)line->nextAnimation, 400);
 	animation_set_curve((Animation *)line->nextAnimation, AnimationCurveEaseOut);
 	animation_schedule((Animation *)line->nextAnimation);
-	
+
 	GRect fromRect2 = layer_get_frame(text_layer_get_layer(current));
 	GRect toRect2 = fromRect2;
 	toRect2.origin.x -= 144;
-	
+
 	line->currentAnimation = property_animation_create_layer_frame(text_layer_get_layer(current), &fromRect2, &toRect2);
 	animation_set_duration((Animation *)line->currentAnimation, 400);
 	animation_set_curve((Animation *)line->currentAnimation, AnimationCurveEaseOut);
-	
+
 	animation_set_handlers((Animation *)line->currentAnimation, (AnimationHandlers) {
 		.stopped = (AnimationStoppedHandler)animationStoppedHandler
 	}, current);
-	
+
 	animation_schedule((Animation *)line->currentAnimation);
 }
 
@@ -66,11 +66,11 @@ static void makeAnimationsForLayers(Line *line, TextLayer *current, TextLayer *n
 static void updateLineTo(Line *line, char lineStr[2][BUFFER_SIZE], char *value)
 {
 	TextLayer *next, *current;
-	
+
 	GRect rect = layer_get_frame(text_layer_get_layer(line->currentLayer));
 	current = (rect.origin.x == 0) ? line->currentLayer : line->nextLayer;
 	next = (current == line->currentLayer) ? line->nextLayer : line->currentLayer;
-	
+
 	// Update correct text only
 	if (current == line->currentLayer) {
 		memset(lineStr[1], 0, BUFFER_SIZE);
@@ -81,7 +81,7 @@ static void updateLineTo(Line *line, char lineStr[2][BUFFER_SIZE], char *value)
 		memcpy(lineStr[0], value, strlen(value));
 		text_layer_set_text(next, lineStr[0]);
 	}
-	
+
 	makeAnimationsForLayers(line, current, next);
 }
 
@@ -106,17 +106,17 @@ static void display_time(struct tm *t)
 	char textLine1[BUFFER_SIZE];
 	char textLine2[BUFFER_SIZE];
 	char textLine3[BUFFER_SIZE];
-	
+
 	time_to_3words(t->tm_hour, t->tm_min, textLine1, textLine2, textLine3, BUFFER_SIZE);
-	
+
 	if (needToUpdateLine(&line1, line1Str, textLine1)) {
-		updateLineTo(&line1, line1Str, textLine1);	
+		updateLineTo(&line1, line1Str, textLine1);
 	}
 	if (needToUpdateLine(&line2, line2Str, textLine2)) {
-		updateLineTo(&line2, line2Str, textLine2);	
+		updateLineTo(&line2, line2Str, textLine2);
 	}
 	if (needToUpdateLine(&line3, line3Str, textLine3)) {
-		updateLineTo(&line3, line3Str, textLine3);	
+		updateLineTo(&line3, line3Str, textLine3);
 	}
 }
 
@@ -124,7 +124,7 @@ static void display_time(struct tm *t)
 static void display_initial_time(struct tm *t)
 {
 	time_to_3words(t->tm_hour, t->tm_min, line1Str[0], line2Str[0], line3Str[0], BUFFER_SIZE);
-	
+
 	text_layer_set_text(line1.currentLayer, line1Str[0]);
 	text_layer_set_text(line2.currentLayer, line2Str[0]);
 	text_layer_set_text(line3.currentLayer, line3Str[0]);
@@ -139,7 +139,7 @@ static void up_single_click_handler(ClickRecognizerRef recognizer, void *context
 	if (t->tm_min >= 60) {
 		t->tm_min = 0;
 		t->tm_hour += 1;
-		
+
 		if (t->tm_hour >= 24) {
 			t->tm_hour = 0;
 		}

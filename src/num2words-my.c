@@ -1,43 +1,43 @@
-#include "num2words-en.h"
+#include "num2words-my.h"
 #include "string.h"
 
 static const char* const ONES[] = {
-  "o'clock",
-  "one",
-  "two",
-  "three",
-  "four",
-  "five",
-  "six",
-  "seven",
-  "eight",
-  "nine"
+  "tepat",
+  "satu",
+  "dua",
+  "tiga",
+  "empat",
+  "lima",
+  "enam",
+  "tujuh",
+  "lapan",
+  "sembilan"
 };
 
 static const char* const TEENS[] ={
   "",
-  "eleven",
-  "twelve",
-  "thirteen",
-  "fourteen",
-  "fifteen",
-  "sixteen",
-  "seventeen",
-  "eightteen",
-  "nineteen"
+  "sebelas",
+  "duabelas",
+  "tigabelas",
+  "empatbelas",
+  "limabelas",
+  "enambelas",
+  "tujuhbelas",
+  "lapanbelas",
+  "sembilanbelas"
 };
 
 static const char* const TENS[] = {
   "",
-  "ten",
-  "twenty",
-  "thirty",
-  "forty",
-  "fifty",
-  "sixty",
-  "seventy",
-  "eighty",
-  "ninety"
+  "sepuluh",
+  "duapuluh",
+  "tigapuluh",
+  "empatpuluh",
+  "limapuluh",
+  "enampuluh",
+  "tujuhpuluh",
+  "lapanpuluh",
+  "sembilanpuluh"
 };
 
 static size_t append_number(char* words, int num) {
@@ -94,11 +94,11 @@ void time_to_3words(int hours, int minutes, char *line1, char *line2, char *line
 {
 	char value[length];
 	time_to_words(hours, minutes, value, length);
-	
+
 	memset(line1, 0, length);
 	memset(line2, 0, length);
 	memset(line3, 0, length);
-	
+
 	char *start = value;
 	char *pch = strstr (start, " ");
 	while (pch != NULL) {
@@ -112,10 +112,10 @@ void time_to_3words(int hours, int minutes, char *line1, char *line2, char *line
 		start += pch-start+1;
 		pch = strstr(start, " ");
 	}
-	
-	// Truncate long teen values
-	if (strlen(line2) > 7) {
-		char *pch = strstr(line2, "teen");
+
+	// Jika rumah sa lebih panjangnya
+	if (strlen(line2) > 8) {
+		char *pch = strstr(line2, "belas");
 		if (pch) {
 			memcpy(line3, pch, 4);
 			pch[0] = 0;
