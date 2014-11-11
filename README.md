@@ -12,3 +12,9 @@ A video with the text changing animation can be found here: http://www.youtube.c
 Compiled build: http://www.mypebblefaces.com/apps/25941/11345/
 
 Romanian language source code available in the textRO branch: https://github.com/wearewip/PebbleTextWatch/tree/textRO
+
+V1.0.1
+======
+- Earliest version. Watchface crash when Pebble lost connection with mobile device.
+- No menu image and no App Locker thumbnail.
+- Font might be too small. Will looking for a more suitable size.
